@@ -48,7 +48,7 @@ class Course(models.Model):
     slug = models.SlugField(max_length=500, blank=True, null=True)
 
     def __str__(self):
-        return f" {self.grade} / {self.course_name}"
+        return f" {self.grade} / {self.course_name} "
 
     class Meta:
         constraints = [
@@ -145,7 +145,8 @@ class ClassVenue(PublicPlace):
 # region volunteer & student
 class EducationalVolunteer(Volunteer):
     offered_course = models.ManyToManyField(Course, blank=True, null=True)
-    edu_level = models.ForeignKey(EducationalLevel, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Preferred Level')
+    edu_level = models.ForeignKey(EducationalLevel, on_delete=models.CASCADE, blank=True, null=True,
+                                  verbose_name='Preferred Level')
     grade = models.ForeignKey(Grade, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Preferred Grade')
     major = models.ForeignKey(Major, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Preferred Major')
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=1)

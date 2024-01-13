@@ -1,8 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from account.models import PublicPlace, Profile, Volunteer
-# from django.urls import reverse
-# from django.utils.text import slugify
+from django.urls import reverse
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -48,7 +48,7 @@ class Course(models.Model):
     slug = models.SlugField(max_length=500, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.major} / {self.grade} / {self.course_name}"
+        return f" {self.grade} / {self.course_name}"
 
     class Meta:
         constraints = [
@@ -144,7 +144,7 @@ class ClassVenue(PublicPlace):
 
 # region volunteer & student
 class EducationalVolunteer(Volunteer):
-    offered_course = models.ManyToManyField(Course, blank=True , null= True)
+    offered_course = models.ManyToManyField(Course, blank=True, null=True)
     edu_level = models.ForeignKey(EducationalLevel, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Preferred Level')
     grade = models.ForeignKey(Grade, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Preferred Grade')
     major = models.ForeignKey(Major, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Preferred Major')
@@ -189,9 +189,10 @@ HOLDING_STYLE = [
 
 
 class Application(models.Model):
+    objects = None
     applicant = models.ManyToManyField(Student)
     demanded_course = models.ForeignKey(Course, on_delete=models.CASCADE, db_index=True, null=True, blank=True)
-    preffered_style = models.CharField(choices=HOLDING_STYLE, max_length=50, null=True, blank=True)
+    preferred_style = models.CharField(choices=HOLDING_STYLE, max_length=50, null=True, blank=True)
     short_description = models.CharField(max_length=300, null=True, blank=True)
     is_accepted = models.BooleanField(blank=True, null=True, default=False)
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=1)
@@ -199,13 +200,13 @@ class Application(models.Model):
     is_active = models.BooleanField(default=False)
     slug = models.SlugField(max_length=200, default="", null=False, db_index=True)
 
-    # def get_absolute_url(self):
-    #     # return reverse('application_detail', args=[self.slug])
-    #     return reverse('application_detail', args=[self.id])
+    def get_absolute_url(self):
+        # return reverse('application_detail', args=[self.slug])
+        return reverse('application_detail', args=[self.id])
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.demanded_course)
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.demanded_course)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.demanded_course}"

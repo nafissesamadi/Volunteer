@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{application.demanded_course.course_name}}
+{% endblock %}
+
+{% block content %}
+            <li>
+                <h1>Demanded Course :  {{application.demanded_course.course_name}}</h1>
+                <h2>Demanded Grade :  {{application.demanded_course.grade}}</h2>
+                <h2> Demanded by : {{application.applicant.all}} </h2>
+                <h2> Preferred Holding Style : {{ application.preferred_style }}  </h2>
+                <p>
+                   Is_accepted :  {{application.is_accepted}}
+                </p>
+            </li>
+{% endblock %}

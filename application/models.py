@@ -144,7 +144,7 @@ class ClassVenue(PublicPlace):
 
 # region volunteer & student
 class EducationalVolunteer(Volunteer):
-    offered_course = models.ManyToManyField(Course, blank=True, null=True)
+    offered_course = models.ManyToManyField(Course)
     edu_level = models.ForeignKey(EducationalLevel, on_delete=models.CASCADE, blank=True, null=True,
                                   verbose_name='Preferred Level')
     grade = models.ForeignKey(Grade, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Preferred Grade')

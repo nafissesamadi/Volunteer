@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'account',
     'application',
     'home',
+    'contact',
     'django_render_partial'
 ]
 

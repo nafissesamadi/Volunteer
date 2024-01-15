@@ -197,9 +197,11 @@ class Application(models.Model):
     short_description = models.CharField(max_length=300, null=True, blank=True)
     is_accepted = models.BooleanField(blank=True, null=True, default=False)
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=1)
-    registered_date = models.DateField(null=True, blank=True, auto_now_add=True)
+    registered_date = models.DateField(null=True, blank=True , auto_now_add=True)
     is_active = models.BooleanField(default=False)
     slug = models.SlugField(max_length=200, default="", null=False, db_index=True)
+
+
 
     def get_absolute_url(self):
         # return reverse('application_detail', args=[self.slug])

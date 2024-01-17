@@ -2,41 +2,41 @@ from django import forms
 from .models import ContactUs
 
 
-class ContactUsForm(forms.Form):
-    full_name = forms.CharField(
-        label='Full Name',
-        max_length=50,
-        required=False,
-        error_messages={
-            'required': 'Please Enter Your Full Name ',
-            'max_length': 'It is more than 50 character'
-        },
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Full Name'
-        })
-    )
-    email = forms.EmailField(
-        label='Email',
-        widget=forms.EmailInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Email'
-        })
-    )
-    subject = forms.CharField(
-        label='Title',
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Title'
-        })
-    )
-    text = forms.CharField(
-        label='Message',
-        widget=forms.Textarea(attrs={
-            'class': 'form-control',
-            'placeholder': 'Message Text',
-            'rows': '5'
-        }))
+# class ContactUsForm(forms.Form):
+#     full_name = forms.CharField(
+#         label='Full Name',
+#         max_length=50,
+#         required=False,
+#         error_messages={
+#             'required': 'Please Enter Your Full Name ',
+#             'max_length': 'It is more than 50 character'
+#         },
+#         widget=forms.TextInput(attrs={
+#             'class': 'form-control',
+#             'placeholder': 'Full Name'
+#         })
+#     )
+#     email = forms.EmailField(
+#         label='Email',
+#         widget=forms.EmailInput(attrs={
+#             'class': 'form-control',
+#             'placeholder': 'Email'
+#         })
+#     )
+#     subject = forms.CharField(
+#         label='Title',
+#         widget=forms.TextInput(attrs={
+#             'class': 'form-control',
+#             'placeholder': 'Title'
+#         })
+#     )
+#     text = forms.CharField(
+#         label='Message',
+#         widget=forms.Textarea(attrs={
+#             'class': 'form-control',
+#             'placeholder': 'Message Text',
+#             'rows': '5'
+#         }))
 
 
 class ContactUsModelForm(forms.ModelForm):
@@ -66,7 +66,7 @@ class ContactUsModelForm(forms.ModelForm):
         labels = {
             'full_name': 'Full Name',
             'email': 'Email',
-            'title' : 'Title',
+            'title': 'Title',
             'message': 'Message Text'
         }
 
@@ -76,3 +76,7 @@ class ContactUsModelForm(forms.ModelForm):
             }
         }
 
+
+# class ProfileForm(forms.Form):
+#     user_image=forms.ImageField()
+#     # user_image = forms.FileField()

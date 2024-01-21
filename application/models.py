@@ -44,6 +44,9 @@ class Course(models.Model):
     course_name = models.ForeignKey(CourseName, on_delete=models.CASCADE)
     grade = models.ForeignKey(Grade, on_delete=models.CASCADE, blank=True, null=True)
     major = models.ForeignKey(Major, on_delete=models.CASCADE, blank=True, null=True)
+    image=models.ImageField(upload_to='images/courses', null=True,blank=True)
+    code=models.CharField(max_length=7, blank=True, null=True)
+    book_download_link=models.CharField(max_length=300, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     slug = models.SlugField(max_length=500, blank=True, null=True)
 

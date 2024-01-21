@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect , get_object_or_404
 from .models import Application
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, View
 from django.views.generic import ListView, DetailView
 
 # region Application_List
@@ -22,10 +22,12 @@ class ApplicationListView(ListView):
     template_name='application/application_list.html'
     model=Application
     context_object_name = 'applications'
-    def get_queryset(self):
-        base_query=super(ApplicationListView,self).get_queryset()
-        data=base_query.filter(is_active=True)
-        return data
+    ordering = ['rating']
+    paginate_by = 9
+    # def get_queryset(self):
+    #     base_query=super(ApplicationListView,self).get_queryset()
+    #     data=base_query.filter(is_active=True)
+    #     return data
 
 # endregion
 
@@ -48,6 +50,20 @@ class ApplicationListView(ListView):
 class ApplicationDetailView(DetailView):
     template_name ='application/application_detail.html'
     model= Application
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        loaded_application = self.object
+        request = self.request
+        favorite_application_id = request.session.get("application_favorites")
+        context['is_favorite'] = favorite_application_id == str(loaded_application.id)
+        return context
 
 
 # endregion
+
+class AddMyFavoriteApplication(View):
+    def post(self,request):
+        application_id=request.POST["application_id"]
+        application= Application.objects.get(pk=application_id)
+        request.session["application_favorites"]=application_id
+        return redirect(application.get_absolute_url())

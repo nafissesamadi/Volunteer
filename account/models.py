@@ -54,6 +54,7 @@ EDUCATION_DEGREE = [
 
 
 class UserType(models.Model):
+    objects = None
     title = models.CharField(max_length=20)
 
     def __str__(self):

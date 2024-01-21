@@ -117,7 +117,7 @@ class ForgetPasswordView(View):
             user: User = User.objects.filter(email__iexact=user_email).first()
             if user is not None:
                 send_email('بازیابی کلمه عبور', user.email, {'user': user}, 'emails/forgot_password.html')
-                return redirect(reverse('application_list'))
+                return redirect(reverse('login_page'))
 
         context = {'forget_pass_form': forget_pass_form}
         return render(request, 'account/forget_password.html', context)

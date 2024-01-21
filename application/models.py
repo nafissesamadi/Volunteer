@@ -41,7 +41,7 @@ class Major(models.Model):
 
 
 class Course(models.Model):
-    course_name = models.ForeignKey(CourseName, on_delete=models.CASCADE)
+    course_name = models.ForeignKey(CourseName, on_delete=models.CASCADE, db_index=True)
     grade = models.ForeignKey(Grade, on_delete=models.CASCADE, blank=True, null=True)
     major = models.ForeignKey(Major, on_delete=models.CASCADE, blank=True, null=True)
     image=models.ImageField(upload_to='images/courses', null=True,blank=True)

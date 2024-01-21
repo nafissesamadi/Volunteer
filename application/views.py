@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect , get_object_or_404
-from .models import Application
+from .models import Application, Course
 from django.views.generic.base import TemplateView, View
 from django.views.generic import ListView, DetailView
 
@@ -67,3 +67,11 @@ class AddMyFavoriteApplication(View):
         application= Application.objects.get(pk=application_id)
         request.session["application_favorites"]=application_id
         return redirect(application.get_absolute_url())
+
+# region Course_list
+class CoursesListView(ListView):
+    model=Course
+    paginate_by = 10
+    ordering=['-code']
+    template_name='application/course_page.html'
+# endregion
